@@ -1,4 +1,6 @@
-# Husky
+# Fusky
+
+FUll Stack hasKell Y-for-aww
 
 Haskell frontend & backend implementation
 
