@@ -96,6 +96,14 @@ gulp.task("compress", ["concat"], function() {
         .pipe(gulp.dest("dist"));
 });
 
+gulp.task("connect", function () {
+    connect.server({
+        root: '',
+        port: 8000,
+        livereload: true
+    });
+});
+
 // gulp.task("prod", ["clean", "less", "psci", "bundle:cli", "bundle", "concat", "compress"]);
-gulp.task("dev", ["less", "psci", "bundle", "concat"]);
+gulp.task("dev", ["less", "psci", "bundle", "concat", "connect"]);
 // gulp.task("default", ["less", "psci", "bundle", "concat"]);
