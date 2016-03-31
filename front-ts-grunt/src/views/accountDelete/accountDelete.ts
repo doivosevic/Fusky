@@ -1,5 +1,5 @@
 
-import {View, Component} from 'angular2/core';
+import {Component} from 'angular2/core';
 import {Location, RouteConfig, RouterLink, Router, CanActivate} from 'angular2/router';
 
 import { HttpAdvanced } from '../../services/services';
@@ -21,7 +21,7 @@ export class AccountDelete {
     submitDelete() {
         if (this.password) {
             this.http.postWithBothMsg('/user/account/delete', { password: this.password }, (res) => {
-                this.router.navigate(['Index']); 
+                this.router.navigate(['Index']);
             });
         }
     }

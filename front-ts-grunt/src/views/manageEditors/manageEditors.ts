@@ -1,5 +1,5 @@
 
-import { View, Component } from 'angular2/core';
+import { Component } from 'angular2/core';
 import { Location, RouteConfig, RouterLink, Router, CanActivate } from 'angular2/router';
 import { COMMON_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 
@@ -40,7 +40,7 @@ export class ManageEditors {
             this.closestMatches = new Array();
         }
     }
-    
+
     enterCheck(event) {
         let keyCode = event.keyCode;
         if (keyCode == 13 && this.closestMatches.length > 0) {
@@ -54,7 +54,7 @@ export class ManageEditors {
 
 
 
-        
+
         let id = this.closestMatches[0].id;
         this.http.post('/admin/editors/add/' + this.closestMatches[0].id, '');
         this.editors.push(this.closestMatches[0]);
@@ -64,7 +64,7 @@ export class ManageEditors {
     }
 
     removeEditor(removedEditorId) {
-        for (let i in this.editors) {
+        for (let i = 0; i <= this.editors.length; ++i) {
             if (this.editors[i].id === removedEditorId) {
                 this.editors.splice(i, 1);
                 break;

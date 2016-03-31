@@ -48,12 +48,12 @@ export class MakeWishlist {
             this.msgService.setMessage( 'Na listi želja je već deset zapisa, nije moguće dodati još jedan.', 'error' );
             return;
         }
-        for ( let i in this.tracks )
+        for (let i = 0; i <= this.tracks.length; ++i) {
             if ( this.tracks[ i ].id == track.id ){
                 this.msgService.setMessage( 'Taj je zapis već na listi želja.', 'error' );
                 return;
             }
-
+        }
         this.tracks.push( track );
         this.trackSearch = '';
         this.searchResults = [];
@@ -87,7 +87,7 @@ export class MakeWishlist {
     }
 
     removeFromWishlist( track : Track ){
-        for ( let i in this.tracks )
+        for (let i = 0; i <= this.tracks.length; ++i)
             if ( this.tracks[ i ] == track )
                 this.tracks.splice( i, 1 )
     }

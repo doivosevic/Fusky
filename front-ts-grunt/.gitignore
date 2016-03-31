@@ -1,9 +1,9 @@
-dest/*
+dest/
+node_modules/
 *.js.map
 *.js
 *.css
 *.html
 
 !index.html
-!dest/static/*
 !Gruntfile.js

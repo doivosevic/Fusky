@@ -68,8 +68,9 @@ export class MakePlaylist {
 
     removeTrack(track) {
         for (let i in this.playlist) {
+            let n = parseInt(i);
             if (this.playlist[i] == track) {
-                this.playlist.splice(i, 1);
+                this.playlist.splice(n, 1);
             }
         }
         this.updateBar();

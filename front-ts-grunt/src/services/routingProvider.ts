@@ -26,7 +26,7 @@ class MyAsyncComponent {
         this.hidden = hidden ? true : false;
     }
 
-    getLoader(): Function {
+    getLoader() {
         return () => ComponentHelper.LoadComponentAsync( this.componentName, VIEWS_DIR_PATH + this.folderName + '/' + this.folderName );
     }
 

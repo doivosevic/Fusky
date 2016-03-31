@@ -16,12 +16,14 @@ export class AuthService {
     public isLoggedIn: boolean;
     public userRole: string;
     public userName: string;
+    private timer: any;
 
     public accountType: number = 0;
 
     constructor(http: HttpAdvanced) {
         this.http = http;
         this.storeUserAuthentication();
+        this.timer = null;
     }
 
     storeUserAuthentication(callback?: Function) {
@@ -37,8 +39,8 @@ export class AuthService {
     }
 
     getAuthLevel() {
-        if (!this.isInitialized()) this.storeUserAuthentication();
-        return sessionStorage.getItem(ACCOUNT_TYPE);
+        if (!this.isLoggedIn || !this.isInitialized()) return null;
+        else return sessionStorage.getItem(ACCOUNT_TYPE);
     }
 
     isLoggedInFn() {

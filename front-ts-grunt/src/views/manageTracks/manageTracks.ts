@@ -1,5 +1,5 @@
 
-import { View, Component } from 'angular2/core';
+import { Component } from 'angular2/core';
 import { Location, RouteConfig, RouterLink, Router, CanActivate } from 'angular2/router';
 import { NgIf, NgFor, FORM_DIRECTIVES} from 'angular2/common';
 
@@ -26,7 +26,7 @@ export class ManageTracks {
     }
 
     deleteTrack(track) {
-        for (let i in this.tracks) {
+        for (let i = 0; i <= this.tracks.length; ++i) {
             if (this.tracks[i].id == track.id) {
                 this.tracks.splice(i, 1);
                 break;

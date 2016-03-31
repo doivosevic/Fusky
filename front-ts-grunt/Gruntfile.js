@@ -53,7 +53,7 @@ module.exports = function (grunt) {
       ts:     { files: [ 'src/**/*.ts'    ], tasks: 'ts'    }
     },
     clean:  { default: [ 'dest' ] },
-    copy:   { default: { files: [ { expand: true, cwd: 'app/typescript/', src: './**', dest: 'app/templates'} ] } },
+    //copy:   { default: { files: [ { expand: true, cwd: 'app/typescript/', src: './**', dest: 'app/templates'} ] } },
     concurrent: {
       watch: {
         tasks: [ 'watch:ts', 'watch:jade', 'watch:css' ],
@@ -61,6 +61,10 @@ module.exports = function (grunt) {
       },
       compile: {
         tasks: [ 'jade', 'css', 'ts' ],
+        options: { logConcurrentOutput: true }
+      },
+      all: {
+        tasks: [ 'concurrent:watch', 'concurrent:compile', 'connect' ],
         options: { logConcurrentOutput: true }
       }
     },
@@ -94,7 +98,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-connect');
 
-  grunt.registerTask('css', ['sass', 'postcss']);
-  grunt.registerTask('default', ['concurrent:compile', 'concurrent:watch']);
+  grunt.registerTask('css', [ 'sass', 'postcss' ]);
+  grunt.registerTask('default', [ 'concurrent:all' ]);
 
 };

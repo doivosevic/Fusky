@@ -1,4 +1,4 @@
-import {View, Component} from 'angular2/core';
+import {Component} from 'angular2/core';
 import {Location, RouteConfig, RouterLink, Router, CanActivate} from 'angular2/router';
 
 import { HttpAdvanced } from '../../services/services';
@@ -28,7 +28,7 @@ export class ManageUsers {
     }
 
     deleteUser(userId) {
-        for (let i in this.users) {
+        for (let i = 0; i <= this.users.length; ++i) {
             if (this.users[i].id.toString() === userId.toString()) {
                 this.users.splice(i, 1);
             }

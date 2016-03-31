@@ -1,5 +1,5 @@
 
-import { View, Component } from 'angular2/core';
+import { Component } from 'angular2/core';
 import { Location, RouteConfig, RouterLink, Router, CanActivate } from 'angular2/router';
 import { COMMON_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 
@@ -67,7 +67,7 @@ export class ManageAdmins {
     }
 
     removeAdmin(removedAdminId) {
-        for (let i in this.admins) {
+        for (let i = 0; i <= this.admins.length; ++i) {
             if (this.admins[i].id === removedAdminId) {
                 this.admins.splice(i, 1);
                 break;
