@@ -1,0 +1,27 @@
+{
+  "version": "1.8.9",
+  "compileOnSave": false,
+  "compilerOptions": {
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "mapRoot": "",
+    "module": "system",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noImplicitAny": false,
+    "outDir": "dist/",
+    "rootDir": ".",
+    "sourceMap": true,
+    "sourceRoot": "src/",
+    "target": "es5"
+  },
+
+  "files": [
+    "src/index.ts",
+    "src/typings.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

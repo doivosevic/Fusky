@@ -7,12 +7,9 @@ import { AuthService } from '../../services/authService';
     templateUrl: 'dest/views/overview/overview.html'
 })
 export class Overview{
-  items: any;
+    authService : AuthService;
 
-  constructor(){
-    this.items = [
-      { name: 'Bozo', number: '555' },
-      { name: 'Kifla', number: '111' }
-    ];
-  }
+    constructor( authService: AuthService ){
+        this.authService = authService;
+    }
 }

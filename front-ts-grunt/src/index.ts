@@ -7,8 +7,6 @@ import { provide, Injectable } from 'angular2/core';
 
 import { App } from './app';
 
-import { AuthService, MsgService, HttpAdvanced, FormBuilderAdvanced, MsgServiceInternal } from './services/services';
-
 @Injectable()
 export class DefaultRequestOptions extends BaseRequestOptions {
     constructor() {
@@ -24,17 +22,6 @@ bootstrap(
         ROUTER_PROVIDERS,
         HTTP_PROVIDERS,
         provide(LocationStrategy, { useClass: PathLocationStrategy }),
-        provide(RequestOptions, { useClass: DefaultRequestOptions }),
-        MsgService,
-        MsgServiceInternal,
-        HttpAdvanced,
-        AuthService,
-        FormBuilderAdvanced
-        // provide(MsgService, { useClass: MsgService }),
-        // provide(HttpAdvanced, { useClass: HttpAdvanced }),
-        // provide(AuthService, { useFactory: (HttpAdvanced) => new AuthService(HttpAdvanced), deps: [HttpAdvanced] }),
-        // provide(FormBuilderAdvanced, { useFactory: (FormBuilder, HttpAdvanced) => new FormBuilderAdvanced(FormBuilder, HttpAdvanced), deps: [FormBuilder, HttpAdvanced] }),
-        // provide(MsgService, { useClass: MsgService }),
-        // provide(MsgServiceInternal, { useClass: MsgServiceInternal })
+        provide(RequestOptions, { useClass: DefaultRequestOptions })
     ]
 );

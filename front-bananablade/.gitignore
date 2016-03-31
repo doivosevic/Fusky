@@ -1,0 +1,9 @@
+dest/
+node_modules/
+*.js.map
+*.js
+*.css
+*.html
+
+!index.html
+!Gruntfile.js
