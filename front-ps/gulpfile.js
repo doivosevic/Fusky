@@ -19,7 +19,7 @@ gulp.task("make", function () {
 });
 
 gulp.task("bundle", ["make"], function () {
-  return purescript.pscBundle({ src: "output/**/*.js", output: "dist/bundle.js" });
+  return purescript.pscBundle({ src: "output/**/*.js", output: "dist/bundle.js", main: "Main" });
 });
 
 gulp.task("docs", function () {
