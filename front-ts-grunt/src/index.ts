@@ -7,13 +7,13 @@ import { provide, Injectable } from 'angular2/core';
 
 import { App } from './app';
 
-@Injectable()
-export class DefaultRequestOptions extends BaseRequestOptions {
-    constructor() {
-        super();
-        this.headers.set("Content-Type", "application/x-www-form-urlencoded");
-    }
-}
+// @Injectable()
+// export class DefaultRequestOptions extends BaseRequestOptions {
+//     constructor() {
+//         super();
+//         this.headers.set("Content-Type", "application/x-www-form-urlencoded");
+//     }
+// }
 
 bootstrap(
     App,
@@ -21,7 +21,7 @@ bootstrap(
         FORM_PROVIDERS,
         ROUTER_PROVIDERS,
         HTTP_PROVIDERS,
-        provide(LocationStrategy, { useClass: PathLocationStrategy }),
-        provide(RequestOptions, { useClass: DefaultRequestOptions })
+        provide(LocationStrategy, { useClass: PathLocationStrategy })//,
+        // provide(RequestOptions, { useClass: DefaultRequestOptions })
     ]
 );

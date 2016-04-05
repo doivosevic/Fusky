@@ -44,7 +44,6 @@
     "src/services/routingProvider.ts",
     "src/services/services.ts",
     "src/services/utilities.ts",
-    "src/settings.ts",
     "src/typings.d.ts",
     "src/views/index/index.ts",
     "src/views/overview/overview.ts"
