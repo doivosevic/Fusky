@@ -11,6 +11,8 @@
     "output"
   ],
   "dependencies": {
-    "purescript-console": "^0.1.0"
+    "purescript-console": "1.0.0-rc.1",
+    "purescript-eff": "1.0.0-rc.1",
+    "purescript-prelude": "1.0.0-rc.3"
   }
 }
