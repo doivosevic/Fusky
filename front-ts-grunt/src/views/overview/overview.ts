@@ -8,6 +8,7 @@ import { AuthService } from '../../services/authService';
 })
 export class Overview{
   items: any;
+  lala: any = 123;
 
   constructor(){
     this.items = [

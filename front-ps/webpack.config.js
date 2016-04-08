@@ -22,7 +22,7 @@ var purescriptWebpackPlugin = new PurescriptWebpackPlugin({
 });
 
 var config
-  = { entry: './src/Main'
+  = { entry: './src/Index'
     , debug: true
     , devtool: 'source-map'
     , output: { path: __dirname

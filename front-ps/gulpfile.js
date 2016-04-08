@@ -38,7 +38,7 @@ gulp.task("dotpsci", function () {
 });
 
 gulp.task("test", ["make"], function() {
-  return purescript.pscBundle({ src: "output/**/*.js", main: "Main" })
+  return purescript.pscBundle({ src: "output/**/*.js", main: "Index" })
     .pipe(run("node"));
 });
 
@@ -49,4 +49,4 @@ gulp.task('clean', function () {
 
 gulp.task("purescript-all", ["bundle", "docs", "dotpsci"/*, "test"*/]);
 
-gulp.task("default", ["clean", "purescript-all"])
+gulp.task("default", [/*"clean", */"purescript-all"])
