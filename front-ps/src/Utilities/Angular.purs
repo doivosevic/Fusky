@@ -9,6 +9,8 @@ foreign import data Decorator :: *
 foreign import data NgClass :: *
 foreign import data DecoratedNgClass :: *
 
+foreign import data ANGULAR :: !
+
 foreign import toNgClass :: forall a. a -> NgClass
 
 foreign import decorateNgClassUncurried :: Fn2 NgClass (Array Decorator) DecoratedNgClass

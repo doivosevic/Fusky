@@ -17,14 +17,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 exports.decorateNgClassUncurried = function (ngClass, decorators/*, constructorInjectors*/) {
   // console.log(ngClass);
   var constructorInjectors = null;
-  var ngClassFunc = function () {
-    for (var i in ngClass) {
-      this[i] = ngClass[i];
-    }
-  };
   decorators.push(__metadata('design:paramtypes', constructorInjectors || []));
-  __decorate(decorators, ngClassFunc);
-  return ngClassFunc;
+  __decorate(decorators, ngClass);
+  return ngClass;
 };
 
-exports.toNgClass = function (a) { return a; };
+exports.toNgClass = function (a) {
+  var ngClassFunc = function () {
+    for (var i in a) {
+      this[i] = a[i];
+    }
+  };
+  return ngClassFunc;
+};

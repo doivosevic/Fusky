@@ -1,9 +1,12 @@
-module App where
+module App.Root where
 
 import Utilities.Angular (NgClass, toNgClass, DecoratedNgClass, decorateNgClass)
 import Angular.Core (Component, createComponent)
 import Angular.Router (Route, createRouteConfig, routerDirectives)
 import Angular.Common (commonDirectives)
+
+import App.Views.Overview (overview)
+import App.Views.Index (index)
 
 app :: { x :: String, y :: String }
 app = {
@@ -21,8 +24,8 @@ appComponent = {
 
 appRoutes :: Array Route
 appRoutes = [
-  -- { path: "/", name: "Index", component: Index, useAsDefault: true },
-  -- { path: "/overview", name: "Overview", component: Overview, useAsDefault: false }
+  { path: "/", name: "Index", component: index, useAsDefault: true },
+  { path: "/overview", name: "Overview", component: overview, useAsDefault: false }
 ]
 
 ngApp :: NgClass

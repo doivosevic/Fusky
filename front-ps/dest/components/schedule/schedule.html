@@ -1,0 +1,10 @@
+
+<div class="schedule-box">
+  <h2>Raspored emitiranja</h2>
+  <ul class="schedule">
+    <li *ngFor="#item of items" class="schedule-item">
+      <div class="item-time">{{ item.time }}</div>
+      <div class="item-editor">{{ item.editor }}</div>
+    </li>
+  </ul>
+</div>

@@ -1,12 +1,19 @@
 module Main where
 
-import Prelude
+import Prelude (Unit)
 import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (CONSOLE, log)
 
-import Other (x)
+import Angular.Common (formProviders)
+import Angular.Browser (bootstrap)
+import Angular.Http (httpProviders)
+import Angular.Router (routerProviders)
 
-main :: forall e. Eff (console :: CONSOLE | e) Unit
-main = do
-  log "Hello sailor!"
-  log x
+import Utilities.Angular (ANGULAR)
+import App.Root (decoratedNgApp)
+
+main :: forall a e. a -> Eff (angular :: ANGULAR | e ) Unit
+main = \_ -> bootstrap decoratedNgApp [
+  formProviders,
+  httpProviders,
+  routerProviders
+]

@@ -1,0 +1,18 @@
+
+<nav class="nav-bar">
+  <div class="nav-bar-top-spacer"></div>
+  <ul>
+    <div *ngFor="#group of navigation">
+      <li *ngIf="isVisible( group.accountType )" class="nav-option-group"><a *ngIf="group.hasLink" [routerLink]="[group.link.componentName]">
+          <div class="nav-option-group-name">{{ group.displayName }}</div></a>
+        <div *ngIf="!group.hasLink" class="nav-option-group-name">{{ group.displayName }}</div>
+        <ul><a [routerLink]="[comp.componentName]" *ngFor="#comp of group.components">
+            <div *ngIf="!comp.hidden">
+              <li class="option-group-item">{{ comp.displayName }}</li>
+            </div></a></ul>
+      </li>
+    </div>
+    <li class="nav-option-group"><a (click)="logout()">
+        <div class="nav-option-group-name">Odjavi se</div></a></li>
+  </ul>
+</nav>
