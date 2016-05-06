@@ -1,7 +1,97 @@
 
-<div class="index">
-  <li *ngFor="#item of items">
-    <div class="itom">{{item.name}}</div>
-    <div class="pitom">{{item.number}}</div>
-  </li>
+<div class="index-top-spacer"></div>
+<div class="player-wrapper section-wrapper">
+  <div class="player-container section-container">
+    <player></player>
+    <schedule></schedule>
+  </div>
+</div>
+<div class="info-wrapper section-wrapper">
+  <div class="info-container section-container">
+    <!-- <popular></popular> -->
+    <radio-descr></radio-descr>
+  </div>
+</div>
+<!-- <div id="register" [ngClass]="{hidden : authService.isLoggedInFn() }" class="register-wrapper section-wrapper"> -->
+<div id="register" class="register-wrapper section-wrapper">
+  <div class="register-container section-container">
+    <div class="register-descr-box">
+      <h2>Postani dio FM Radija</h2>
+      <div class="register-descr">
+        <p>Registriraj se, postani korisnik <b>FM Radija</b> i sudjeluj
+                                  u njegovom radu. Tvoje ideje, želje i prijedlozi mogu
+                                  pomoći kako bi tvoj omiljeni radio postao još i bolji!
+        </p>
+        <p class="roles-info">Kao korisnik, možeš biti:</p>
+      </div>
+      <ul class="roles-list">
+        <li class="role">
+          <div class="role-container">
+            <div class="role-icon"><i class="material-icons">person</i></div>
+            <div class="role-name">Registrirani korisnik</div>
+            <div class="role-descr">Reci nam što želiš slušati i pomozi nam da program učinimo još boljim!</div>
+          </div>
+        </li>
+        <li class="role">
+          <div class="role-container">
+            <div class="role-icon"><i class="material-icons">edit</i></div>
+            <div class="role-name">Glazbeni urednik</div>
+            <div class="role-descr">Pomozi nam obogatiti program sastavljanjem vlastite glazbene emisije!</div>
+          </div>
+        </li>
+        <li class="role">
+          <div class="role-container">
+            <div class="role-icon"><i class="material-icons">build</i></div>
+            <div class="role-name">Administrator</div>
+            <div class="role-descr">Pomozi nam upravljati pjesmama, urednicima, korisnicima i terminima!</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="register-form-box">
+      <h2>Registriraj se</h2>
+      <form [ngFormModel]="registerForm" (ngSubmit)="onSubmitRegistration(registerForm.value)" class="register-form">
+        <div class="form-line">
+          <input type="text" name="first_name" placeholder="Ime" pattern=".{2,64}" [ngFormControl]="registerForm.controls['first_name']"/>
+        </div>
+        <div class="form-line">
+          <input type="text" name="last_name" placeholder="Prezime" pattern=".{2,64}" [ngFormControl]="registerForm.controls['last_name']"/>
+        </div>
+        <div class="form-line spacer-line"></div>
+        <div class="form-line">
+          <input type="email" name="email" placeholder="E-mail adresa" [ngFormControl]="registerForm.controls['email']"/>
+        </div>
+        <div class="form-line">
+          <input type="password" name="password" placeholder="Lozinka" pattern=".{6,64}" [ngFormControl]="registerForm.controls['password']"/>
+        </div>
+        <div class="form-line">
+          <input type="password" name="password2" placeholder="Ponovljena lozinka" pattern=".{6,64}" [(ngFormControl)]="registerForm.controls['password2']"/>
+        </div>
+        <div class="form-line spacer-line"></div>
+        <div class="form-line">
+          <input type="number" name="year_of_birth" placeholder="Godina rođenja" min="1900" max="2100" [ngFormControl]="registerForm.controls['year_of_birth']"/>
+        </div>
+        <div class="form-line">
+          <input type="text" name="occupation" placeholder="Zanimanje" pattern=".{2,64}" [ngFormControl]="registerForm.controls['occupation']"/>
+        </div>
+        <div class="form-line spacer-line"></div>
+        <div class="form-line tos-line">
+          <label for="tos" class="tos-label">Klikom na <b>registriraj se!</b> prihvaćate <a href="">uvjete korištenja</a> ove aplikacije.</label>
+        </div>
+        <div class="form-line spacer-line"></div>
+        <div class="form-line">
+          <button type="submit" [disabled]="!registerForm.valid" class="raised">Registriraj se!</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="footer-wrapper section-wrapper">
+  <div class="footer-container section-container">
+    <div class="footer-left">
+      <station></station>
+    </div>
+    <div class="footer-right"></div>
+    <div class="footer-copy">Copyright © 2015-16 <b>FM Radio</b>. Sva prava pridržana. Izrada i održavanje: <i>Bananablade™</i></div>
+  </div>
 </div>

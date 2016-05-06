@@ -1,0 +1,13 @@
+
+<div class="content-box">
+  <div class="content-box-icon"><i class="material-icons">directions_bike</i></div>
+  <div class="content-box-content">
+    <h2 class="content-box-name">Aktivnost administratora</h2>
+    <p class="content-box-descr">Pogledajte koji su sve administratori trenutno aktivni.</p>
+    <div class="stat active-admins-stat">
+      <ul class="stat-list active-admins-stat-list">
+        <li *ngFor="#admin of admins">{{ admin }}</li>
+      </ul>
+    </div>
+  </div>
+</div>

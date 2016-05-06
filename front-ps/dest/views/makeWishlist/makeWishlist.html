@@ -1,0 +1,66 @@
+
+<div [ngClass]="{&quot;state-editable&quot; : editable, &quot;state-uneditable&quot; : !editable}" class="center-area">
+  <header class="center-header">
+    <div class="view-path">Pregledaj listu želja</div>
+  </header>
+  <div class="center-content">
+    <header class="content-header">
+      <div class="content-header-left">
+        <div class="content-header-title">Lista želja</div>
+        <div class="content-header-subtitle">
+          Sastavite svoju vlastitu
+          listu želja te ju učinite dostupnom svim urednicima, kako biste i
+          sami mogli sudjelovati u radu ove radio postaje.
+        </div>
+      </div>
+      <div class="content-header-right"><i class="material-icons icon">assignment</i></div>
+    </header>
+    <nav class="content-options uneditable-ui">
+      <button (click)="toggleEditable()">Uredi listu želja</button>
+      <button (click)="confirmWishlist()" [disabled]="!can_confirm">Potvrdi listu želja</button>
+    </nav>
+    <nav class="content-options editable-ui">
+      <button (click)="saveWishlist()">Spremi listu želja</button>
+      <button (click)="toggleEditable()">Odustani od promjena</button>
+    </nav>
+    <ul class="content-primary content-list">   
+      <li class="content-list-item content-list-search-item editable-ui">
+        <form>
+          <div class="content-list-item-content">
+            <label for="add_track_search">Dodaj na listu</label>
+            <input type="text" name="add_track_search" (keydown)="enterCheck($event)" [(ngModel)]="trackSearch" autocomplete="off" class="add-item-search"/>
+          </div>
+          <div class="content-list-item-options">
+            <button [disabled]="!matching" (click)="addTrack()" class="raised add-item-button"><i class="material-icons">playlist_add</i></button>
+          </div>
+        </form>
+      </li>
+      <div>
+        <li *ngFor="#track of searchResults" class="content-list-item closest-match-item track-item">
+          <div class="content-list-item-content">
+            <div class="content-list-item-name">{{track.title}}</div>
+            <div class="content-list-item-data">
+              <div class="content-list-item-data-item track-duration">{{track.play_duration}}</div>
+              <div class="content-list-item-data-item track-artist-dim">{{track.artist}}</div>
+              <div class="content-list-item-data-item track-album">{{track.album}}</div>
+            </div>
+          </div>
+        </li>
+      </div>
+      <li *ngFor="#track of tracks" class="content-list-item track-item">
+        <div class="content-list-item-content">
+          <div class="content-list-item-name">{{ track.title }}</div>
+          <div class="content-list-item-data">
+            <div class="content-list-item-data-item track-artist">{{ track.artist }}</div>
+            <div class="content-list-item-data-item track-album">{{ track.album }}</div>
+            <div class="content-list-item-data-item track-year">{{ track.year }}</div>
+            <div class="content-list-item-data-item track-genre">{{ track.genre }}</div>
+          </div>
+        </div>
+        <div class="content-list-item-options">
+          <button (click)="removeFromWishlist(track)" class="alt editable-ui"><i class="material-icons">clear</i></button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

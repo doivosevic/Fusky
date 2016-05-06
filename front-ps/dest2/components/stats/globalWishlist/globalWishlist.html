@@ -1,0 +1,15 @@
+
+<div class="content-box">
+  <div class="content-box-icon"><i class="material-icons">assignment</i></div>
+  <div class="content-box-content">
+    <h2 class="content-box-name">Ukupna lista želja korisnika</h2>
+    <p class="content-box-descr">Pogledajte ukupnu listu želja korisnika radiopostaje.</p>
+    <div class="stat">
+      <ul class="stat-list track-stat-list">
+        <li *ngFor="#wish of wishes"><span class="track-stat-list-track-name">{{ wish.title }}</span><span class="track-stat-list-track-artist">{{ wish.artist }}</span>
+          <div class="track-stat-list-wish-count">{{ wish.count }}</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

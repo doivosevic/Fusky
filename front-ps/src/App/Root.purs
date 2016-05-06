@@ -8,10 +8,11 @@ import Angular.Common (commonDirectives)
 import App.Views.Overview (overview)
 import App.Views.Index (index)
 
-app :: { x :: String, y :: String }
+app :: { x :: String, y :: String, bol :: Boolean }
 app = {
   x: "Ovo je x",
-  y: "Ovo je y"
+  y: "Ovo je y",
+  bol: true
 }
 
 appComponent :: Component
@@ -19,7 +20,7 @@ appComponent = {
   selector: "App",
   templateUrl: "./dest/app.html",
   styles: [],
-  directives: [routerDirectives, commonDirectives]
+  directives: [ routerDirectives, commonDirectives ]
 }
 
 appRoutes :: Array Route
@@ -29,10 +30,10 @@ appRoutes = [
 ]
 
 ngApp :: NgClass
-ngApp = toNgClass app
+ngApp = toNgClass "App" app []
 
 decoratedNgApp :: DecoratedNgClass
 decoratedNgApp = decorateNgClass ngApp [
   createComponent appComponent,
   createRouteConfig appRoutes
-]
+] []

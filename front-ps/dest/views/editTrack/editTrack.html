@@ -1,0 +1,81 @@
+
+<div [ngClass]="{&quot;state-editable&quot; : editable, &quot;state-uneditable&quot; : !editable}" class="center-area">
+  <header class="center-header">
+    <div class="view-path">Zvučni zapisi > Uredi zvučni zapis</div>
+  </header>
+  <div class="center-content">
+    <header class="content-header">
+      <div class="content-header-left">
+        <div class="content-header-title">Zvučni zapis</div>
+        <div class="content-header-subtitle">
+          Pregledajte i uredite podatke o zvučnom zapisu. Pazite da podaci odražavaju 
+          pravo stanje zvučnog zapisa, jer mogu utjecati na njegovu reprodukciju.
+        </div>
+      </div>
+      <div class="content-header-right"><i class="material-icons icon">audiotrack</i></div>
+    </header>
+    <nav class="content-options uneditable-ui">
+      <button (click)="toggleEditable()">Izmijeni podatke o zvučnom zapisu</button>
+    </nav>
+    <div class="content-primary content-form wide-labels">
+      <form [ngFormModel]="trackForm" (ngSubmit)="onSubmit(trackForm.value)">
+        <fieldset [disabled]="!editable">
+          <div class="form-line">
+            <label for="title">Naslov zapisa</label>
+            <input type="text" name="title" [ngFormControl]="trackForm.controls['title']"/>
+          </div>
+          <div class="form-line">
+            <label for="artist">Izvođač</label>
+            <input type="text" name="artist" [ngFormControl]="trackForm.controls['artist']"/>
+          </div>
+          <div class="form-line">
+            <label for="album">Album</label>
+            <input type="text" name="album" [ngFormControl]="trackForm.controls['album']"/>
+          </div>
+          <div class="form-line">
+            <label for="duration">Trajanje zapisa (s)</label>
+            <input type="number" name="duration" min="1" max="1000" [ngFormControl]="trackForm.controls['duration']"/>
+          </div>
+          <div class="form-line">
+            <label for="file_format">Format zapisa</label>
+            <!-- <input type = "text" name = "file_format"/>-->
+            <select name="file_format" [ngFormControl]="trackForm.controls['file_format']">
+              <option value="MP3">MP3</option>
+              <option value="WAV">WAV</option>
+              <option value="OGG">OGG</option>
+            </select>
+          </div>
+          <div class="form-line">
+            <label for="sample_rate">Frekvencija uzorkovanja (kHz)</label>
+            <input type="text" name="sample_rate" [ngFormControl]="trackForm.controls['sample_rate']"/>
+          </div>
+          <div class="form-line">
+            <label for="bits_per_sample">Broj bitova kvantizacije</label>
+            <input type="number" name="bits_per_sample" min="1" max="64" [ngFormControl]="trackForm.controls['bits_per_sample']"/>
+          </div>
+          <div class="form-line">
+            <label for="genre">Žanr zapisa</label>
+            <input type="text" name="genre" [ngFormControl]="trackForm.controls['genre']"/>
+          </div>
+          <div class="form-line">
+            <label for="publisher">Izdavač</label>
+            <input type="text" name="publisher" [ngFormControl]="trackForm.controls['publisher']"/>
+          </div>
+          <div class="form-line">
+            <label for="carrier_type">Vrsta nosača zvuka</label>
+            <input type="text" name="carrier_type" [ngFormControl]="trackForm.controls['carrier_type']"/>
+          </div>
+          <div class="form-line">
+            <label for="year">Godina izdavanja</label>
+            <input type="number" name="year" min="0" max="2100" [ngFormControl]="trackForm.controls['year']"/>
+          </div>
+          <div class="form-line editable-ui">
+            <div class="left-spacer"></div>
+            <button type="button" (click)="toggleEditable()" class="raised alt right">Odustani</button>
+            <button type="submit" class="raised left">Spremi promjene</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>

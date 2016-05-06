@@ -1,0 +1,35 @@
+
+<div class="center-area">
+  <header class="center-header">
+    <div class="view-path">Odlučuj o zahtjevima</div>
+  </header>
+  <div class="center-content">
+    <header class="content-header">
+      <div class="content-header-left">
+        <div class="content-header-title">Zahtjevi za terminima</div>
+        <div class="content-header-subtitle">
+          Pregledajte i upravljajte zahtjevima urednika za dodjelom termina. 
+          Ako postoji preklapanje s već dodjeljenim terminima, sustav će vas obavijesti.
+        </div>
+      </div>
+      <div class="content-header-right"><i class="material-icons icon">event</i></div>
+    </header>
+    <ul class="content-primary content-list">
+      <li *ngFor="#request of requests" class="content-list-item request-item">
+        <div class="content-list-item-content">
+          <div class="content-list-item-name">{{ deconstructBitmask( request.days_bit_mask ) }} — {{request.time}}</div>
+          <div class="content-list-item-data">
+            <div class="content-list-item-data-item request-editor">{{request.editor.first_name}} {{request.editor.last_name}}</div>
+            <div class="content-list-item-data-item request-date-interval">{{ request.start_date }} – {{ request.end_date }}</div>
+            <div *ngIf="!request.collisions" class="content-list-item-data-item request-collisions-negative">Nema preklapanja</div>
+            <div *ngIf="request.collisions" class="content-list-item-data-item request-collisions-positive">Postoji preklapanje</div>
+          </div>
+        </div>
+        <div class="content-list-item-options editable-ui">
+          <button [disabled]="request.collisions"><i (click)="approveSlot(request.id)" class="material-icons">check</i></button>
+          <button class="alt"><i (click)="rejectSlot(request.id)" class="material-icons">clear</i></button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

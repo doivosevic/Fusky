@@ -1,0 +1,4 @@
+
+<div [ngClass]="{ hidden : !shown }" class="console-wrapper">
+  <div [ngClass]="{ &quot;success-item&quot; : (messageType == &quot;success&quot;), &quot;error-item&quot; : (messageType == &quot;error&quot;), &quot;info-item&quot; : (messageType == &quot;info&quot; )}" class="console-item">{{ messageText }}</div>
+</div>

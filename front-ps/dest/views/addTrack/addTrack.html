@@ -1,0 +1,78 @@
+
+<div class="center-area">
+  <header class="center-header">
+    <div class="view-path">Zvučni zapisi > Dodaj zvučni zapis</div>
+  </header>
+  <div class="center-content">
+    <header class="content-header">
+      <div class="content-header-left">
+        <div class="content-header-title">Dodavanje zapisa</div>
+        <div class="content-header-subtitle">
+          Dodajte novi zvučni zapis i njegove
+          metapodatke u sustav i tako omogućite njegovo korištenje u programu radio postaje.
+        </div>
+      </div>
+      <div class="content-header-right"><i class="material-icons icon">audiotrack</i></div>
+    </header>
+    <div class="content-primary content-form wide-labels">
+      <div class="form-line emph-line">
+        <label for="file">Datoteka zapisa</label>
+        <input type="file" accept="audio/*" ng2-file-select="" [uploader]="uploader" multiple="false"/>
+      </div>
+      <form [ngFormModel]="trackForm.group" (ngSubmit)="onSubmit(trackForm.group.value)">
+        <div class="form-line">
+          <label for="title">Naslov zapisa</label>
+          <input type="text" name="title" pattern=".{1,128}" [(ngFormControl)]="trackForm.group.controls[&quot;title&quot;]"/>
+        </div>
+        <div class="form-line">
+          <label for="artist">Izvođač</label>
+          <input type="text" name="artist" pattern=".{1,128}" [(ngFormControl)]="trackForm.group.controls[&quot;artist&quot;]"/>
+        </div>
+        <div class="form-line">
+          <label for="album">Album</label>
+          <input type="text" name="album" pattern=".{0,64}" [(ngFormControl)]="trackForm.group.controls[&quot;album&quot;]"/>
+        </div>
+        <div class="form-line">
+          <label for="duration">Trajanje zapisa (s)</label>
+          <input type="number" name="duration" min="1" [(ngFormControl)]="trackForm.group.controls[&quot;duration&quot;]"/>
+        </div>
+        <div class="form-line">
+          <label for="file_format">Format zapisa</label>
+          <select name="file_format" [(ngFormControl)]="trackForm.group.controls[&quot;file_format&quot;]">
+            <option value="MP3">MP3</option>
+            <option value="WAV">WAV</option>
+            <option value="OGG">OGG</option>
+          </select>
+        </div>
+        <div class="form-line">
+          <label for="sample_rate">Frekvencija uzorkovanja (kHz)</label>
+          <input type="text" name="sample_rate" min="8" max="512" [(ngFormControl)]="trackForm.group.controls[&quot;sample_rate&quot;]"/>
+        </div>
+        <div class="form-line">
+          <label for="bits_per_sample">Broj bitova kvantizacije</label>
+          <input type="number" name="bits_per_sample" min="4" max="512" [(ngFormControl)]="trackForm.group.controls[&quot;bits_per_sample&quot;]"/>
+        </div>
+        <div class="form-line">
+          <label for="genre">Žanr zapisa</label>
+          <input type="text" name="genre" pattern="(.{2,128}|)" [(ngFormControl)]="trackForm.group.controls[&quot;genre&quot;]"/>
+        </div>
+        <div class="form-line">
+          <label for="publisher">Izdavač</label>
+          <input type="text" name="publisher" pattern="(.{2,64}|)" [(ngFormControl)]="trackForm.group.controls[&quot;publisher&quot;]"/>
+        </div>
+        <div class="form-line">
+          <label for="carrier_type">Vrsta nosača zvuka</label>
+          <input type="text" name="carrier_type" pattern="(.{2,64}|)" [(ngFormControl)]="trackForm.group.controls[&quot;carrier_type&quot;]"/>
+        </div>
+        <div class="form-line">
+          <label for="year">Godina izdavanja</label>
+          <input type="number" name="year" min="-5000" max="2100" [(ngFormControl)]="trackForm.group.controls[&quot;year&quot;]"/>
+        </div>
+        <div class="form-line">
+          <div class="left-spacer"></div>
+          <button type="submit" [disabled]="!trackForm.group.valid" class="raised">Dodaj zapis</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

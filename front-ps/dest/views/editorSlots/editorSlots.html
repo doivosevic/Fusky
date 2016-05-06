@@ -1,0 +1,93 @@
+
+<div class="center-area">
+  <header class="center-header">
+    <div class="view-path">Termini reprodukcije</div>
+  </header>
+  <div class="center-content">
+    <header class="content-header">
+      <div class="content-header-left">
+        <div class="content-header-title">Termini reprodukcije</div>
+        <div class="content-header-subtitle">
+          Pregledajte svoje termine i
+          sastavite liste za reprodukciju odabrane termine, te pošaljite zahtjeve za dodjelom drugih termina.
+        </div>
+      </div>
+      <div class="content-header-right"><i class="material-icons icon">schedule</i></div>
+    </header>
+    <div [ngClass]="{&quot;state-change&quot; : changing, &quot;state-view&quot; : !changing }" class="content-primary content-calendar">
+      <div class="calendar-wrapper">
+        <h2>Kalendar 
+          <div class="calendar-nav"><a (click)="prevWeek()">&lt; </a>{{mondayString}} &ndash; {{sundayString}}<a (click)="nextWeek()">&gt;</a></div>
+        </h2>
+        <div class="calendar large-calendar">
+          <table>
+            <caption>
+              <div class="caption-item">
+                <div class="caption-color c1"></div>
+                <div class="caption-descr">Dodijeljeno vama (prazno)            </div>
+              </div>
+              <div class="caption-item">
+                <div class="caption-color c2"></div>
+                <div class="caption-descr">Dodijeljeno vama (ispunjeno)</div>
+              </div>
+              <div class="caption-item">
+                <div class="caption-color c3"></div>
+                <div class="caption-descr">Zatraženo</div>
+              </div>
+            </caption>
+            <tbody>
+              <tr class="head-row">
+                <th class="rh"></th>
+                <th *ngFor="#day of days">{{ day }}</th>
+              </tr>
+              <tr *ngFor="#hour of hours">
+                <td class="rh">{{ hour }}:00</td>
+                <td *ngFor="#day of daysNum" (click)="slotClicked(day, hour)" [ngClass]="{c1 : getCount( day, hour ) == 0, c2 : getCount( day, hour ) &gt; 0 , c3 : isRequest( day, hour )}"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="calendar-actions">
+        <button (click)="toggleState()">Zatraži novi termin</button>
+      </div>
+      <div class="calendar-option">
+        <form [ngFormModel]="requestForm" (ngSubmit)="requestSlot(requestForm.value)">
+          <h3>Zatraži termin</h3>
+          <div class="form-line">
+            <label for="time">Vrijeme</label>
+            <select name="for" [ngFormControl]="requestForm.controls['time']">
+              <option *ngFor="#hour of hours" [value]="hour">{{hour}}:00</option>
+            </select>
+          </div>
+          <div class="form-line">
+            <label>Dani ponavljanja</label>
+            <fieldset class="day-checks">
+              <input type="checkbox" *ngFor="#day of daysNum" [ngFormControl]="requestForm.controls['day'+day]"/>
+              <ul class="check-labels">
+                <li>P</li>
+                <li>U</li>
+                <li>S</li>
+                <li>Č</li>
+                <li>P</li>
+                <li>S</li>
+                <li>N</li>
+              </ul>
+            </fieldset>
+          </div>
+          <div class="form-line">
+            <label for="start_date">Početni datum</label>
+            <input type="date" name="start_date" [ngFormControl]="requestForm.controls['start_date']" placeholder="mm/dd/yyyy"/>
+          </div>
+          <div class="form-line">
+            <label for="end_date">Završni datum</label>
+            <input type="date" name="end_date" [ngFormControl]="requestForm.controls['end_date']" placeholder="mm/dd/yyyy"/>
+          </div>
+          <div class="form-line">
+            <button type="submit" (click)="toggleState()" class="raised">Zatraži termin</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

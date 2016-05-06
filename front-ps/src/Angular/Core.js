@@ -2,4 +2,8 @@
 
 var core = require("angular2/core");
 
-exports.createComponentUncurried = core.Component;
+exports.createComponent = function (a) {
+  var ret = core.Component(a);
+  //console.log(ret);
+  return ret;
+}

@@ -1,0 +1,24 @@
+
+<header class="header-bar row">
+  <div class="app-box">
+    <div class="app-name"><a href="/"><img src="/src/static/img/logo.png" alt="FM Radio"/></a></div>
+  </div>
+  <div class="debug row">
+    <button type="button" (click)="authService.loginOwner()" class="dim">Owner</button>
+    <button type="button" (click)="authService.loginAdmin()" class="dim">Admin</button>
+    <button type="button" (click)="authService.loginEditor()" class="dim">Editor</button>
+    <button type="button" (click)="authService.loginUser()" class="dim">User</button>
+  </div>
+  <div class="user-box"> 
+    <!--| {{authService.isLoggedInFn()}} {{authService.isLoggedIn}}-->
+    <div *ngIf="!authService.isLoggedInFn()" class="user-form-box">
+      <form [ngFormModel]="loginForm.group" (ngSubmit)="onSubmit(loginForm.group.value)">
+        <input type="email" id="email" placeholder="E-mail" [ngFormControl]="loginForm.controls['email']"/>
+        <input type="password" id="password" placeholder="Lozinka" [ngFormControl]="loginForm.controls['password']"/>
+        <button type="submit">Prijavi se</button><a href="#register">
+          <button type="button" class="dim">Registriraj se</button></a>
+      </form>
+    </div>
+    <div *ngIf="authService.isLoggedInFn()" class="user-name-box"><a [routerLink]="['/Settings', 'Overview']"><i class="material-icons user-icon">settings</i></a><span class="user-name">{{authService.userName}}</span><span class="user-type">{{authService.userRole}}</span></div>
+  </div>
+</header>

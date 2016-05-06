@@ -1,0 +1,10 @@
+
+<div class="popular-info">
+  <h2>Najpopularnije</h2>
+  <ul class="popular-tracks-list">
+    <li *ngFor="#track of tracks" [attr.data-value]="track.popularity">
+      <div class="popular-track-name">{{ track.title }}</div>
+      <div class="popular-track-info">{{ track.artist }}</div>
+    </li>
+  </ul>
+</div>

@@ -13,20 +13,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+exports.toMemberFunction = function (a) {
+  return a;
+}
 
-exports.decorateNgClassUncurried = function (ngClass, decorators/*, constructorInjectors*/) {
+exports.toDirective = function (a) {
+  return a;
+}
+
+exports.decorateNgClassUncurried = function (ngClass, decorators, constructorInjectors) {
   // console.log(ngClass);
-  var constructorInjectors = null;
+  // var constructorInjectors = null;
   decorators.push(__metadata('design:paramtypes', constructorInjectors || []));
-  __decorate(decorators, ngClass);
-  return ngClass;
+  var decoratedNgClass = __decorate(decorators, ngClass);
+
+  console.log(ngClass.name);
+
+  // console.log(ngClass);
+  return decoratedNgClass;
 };
 
-exports.toNgClass = function (a) {
-  var ngClassFunc = function () {
-    for (var i in a) {
-      this[i] = a[i];
-    }
-  };
-  return ngClassFunc;
+exports.toNgClassUncurried = function (name, a, memberFunctions) {
+  // ES6 version
+  // var tempObj = {
+  //   [name]() {
+  //     for (var i in a) {
+  //       this[i] = a[i];
+  //     }
+  //   }
+  // }
+
+  // var functAsString = "(fucntion )"
+
+  eval("var tempObj = {    [name]() {      for (var i in a) {        this[i] = a[i];      }    }  }");
+  // console.log(tempObj[name].toString());
+  // ES5 version
+  // function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+  //
+  // var tempObj = _defineProperty({}, name, function () {
+  //   for (var i in a) {
+  //     this[i] = a[i];
+  //   }
+  // });
+
+  for (var i in memberFunctions) {
+    tempObj[name].prototype[i] = memberFunctions[i];
+  }
+  return tempObj[name];
 };

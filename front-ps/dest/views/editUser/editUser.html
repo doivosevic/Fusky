@@ -1,0 +1,58 @@
+
+<div [ngClass]="{&quot;state-editable&quot; : editable, &quot;state-uneditable&quot; : !editable}" class="center-area">
+  <header class="center-header">
+    <div class="view-path">Korisnici > Uredi korisničke podatke</div>
+  </header>
+  <div class="center-content">
+    <header class="content-header">
+      <div class="content-header-left">
+        <div class="content-header-title">Podaci o korisniku</div>
+        <div class="content-header-subtitle">
+          Pregledajte i uredite
+          podatke korisnika ove radiopostaje. <b>
+            Oprez! Promjene mogu
+            utjecati na korisnikovu mogućnost korištenja sustava.</b>
+        </div>
+      </div>
+      <div class="content-header-right"><i class="material-icons icon">account_box</i></div>
+    </header>
+    <nav class="content-options uneditable-ui">
+      <button (click)="toggleEditable()">Izmijeni podatke o korisniku</button>
+    </nav>
+    <div class="content-primary content-form">
+      <form [ngFormModel]="userForm" (ngSubmit)="onSubmit(userForm.value)">
+        <fieldset [disabled]="!editable">
+          <div class="form-line">
+            <label for="first_name">Ime</label>
+            <input type="text" name="first_name" value="Slavko" pattern=".{2,64}" [ngFormControl]="userForm.controls['first_name']"/>
+          </div>
+          <div class="form-line">
+            <label for="last_name">Prezime</label>
+            <input type="text" name="last_name" value="Kovač" pattern=".{2,64}" [ngFormControl]="userForm.controls['last_name']"/>
+          </div>
+          <div class="form-line">
+            <label for="email">E-mail adresa</label>
+            <input type="email" name="email" value="skovac@mail.com" [ngFormControl]="userForm.controls['email']"/>
+          </div>
+          <div class="form-line">
+            <label for="year_of_birth">Godina rođenja</label>
+            <input type="number" name="year_of_birth" value="1986" min="1900" max="2100" [ngFormControl]="userForm.controls['year_of_birth']"/>
+          </div>
+          <div class="form-line">
+            <label for="occupation">Zanimanje</label>
+            <input type="text" name="occupation" value="keramičar" pattern=".{2,64}" [ngFormControl]="userForm.controls['occupation']"/>
+          </div>
+          <div class="form-line">
+            <label for="account_type">Vrsta računa</label>
+            <input type="text" name="account_type" value="Administrator" disabled="disabled" [(ngModel)]="account_type" class="account-type-input"/>
+          </div>
+          <div class="form-line editable-ui">
+            <div class="left-spacer"></div>
+            <button type="button" (click)="toggleEditable()" class="raised alt right">Odustani</button>
+            <button type="submit" class="raised left">Spremi promjene</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>

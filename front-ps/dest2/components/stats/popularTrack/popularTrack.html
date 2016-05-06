@@ -1,0 +1,41 @@
+
+<div class="content-box">
+  <div class="content-box-icon"><i class="material-icons">trending_up</i></div>
+  <div class="content-box-content">
+    <h2 class="content-box-name">Popularnost najtraženijeg zapisa</h2>
+    <p class="content-box-descr">Pogledajte kako se popularnost trenutno najtraženijeg zapisa mijenjala kroz vrijeme.</p>
+    <div [ngClass]="{&quot;state-view&quot; : !changing, &quot;state-change&quot; : changing }" class="stat track-stat">
+      <div class="stat-track-wrapper">
+        <div class="stat-item-display stat-display stat-track-display">
+          <div class="stat-track-name">{{ track.title }}</div>
+          <div class="stat-track-info">
+            <div class="stat-track-info-item stat-track-artist">{{ track.artist }}</div>
+            <div class="stat-track-info-item stat-track-album">{{ track.album }}</div>
+            <div class="stat-track-info-item stat-track-year">{{ track.year }}</div>
+            <div class="stat-track-info-item stat-track-genre">{{ track.genre }}</div>
+          </div>
+        </div>
+      </div>
+      <div [hidden]="count &lt; 0" class="single-stat">
+        <div class="single-stat-number">{{ count }}</div>
+        <div class="single-stat-descr">Broj traženja zvučnog zapisa</div>
+      </div>
+      <div class="stat-form">
+        <h3>Odabir intervala</h3>
+        <form (ngSubmit)="onSubmit()">
+          <div class="form-line">
+            <label for="start_date">Od datuma:</label>
+            <input type="date" name="start_date" [(ngModel)]="start_date"/>
+          </div>
+          <div class="form-line">
+            <label for="end_date">Do datuma:</label>
+            <input type="date" name="end_date" [(ngModel)]="end_date"/>
+          </div>
+          <div class="form-line">
+            <button type="submit" class="raised alt2">Pretraži</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
