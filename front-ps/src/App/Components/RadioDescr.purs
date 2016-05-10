@@ -7,11 +7,11 @@ import Angular.Core (createComponent)
 
 
 radioDescr :: DecoratedNgClass
-radioDescr = decorateNgClass (toNgClass "RadioDescr" {
+radioDescr = decorateNgClass (toNgClass "radioDescr" {
     descr: ""
   } [ ]) [
     createComponent {
-      selector: "RadioDescr",
+      selector: "radioDescr",
       templateUrl: "dest/components/radioDescr/radioDescr.html",
       styles: [],
       directives: [ commonDirectives ]

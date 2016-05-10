@@ -4,8 +4,13 @@ import Angular.Common (commonDirectives)
 import Utilities.Angular (toNgClass, DecoratedNgClass, decorateNgClass)
 import Angular.Core (createComponent)
 
+-- player :: { playing :: Boolean, timeout :: Number, progress :: Number, audio :: {
+--   currentTime :: Number, duration :: Number
+--   }, sourceUrl :: String }
+-- player =
+
 player :: DecoratedNgClass
-player = decorateNgClass (toNgClass "Player" {
+player = decorateNgClass (toNgClass "player" {
     playing: false,
     timeout: 1000,
     progress: 0,
@@ -13,7 +18,7 @@ player = decorateNgClass (toNgClass "Player" {
     sourceUrl: "/player/get"
   } [ ]) [
     createComponent {
-      selector: "Player",
+      selector: "player",
       templateUrl: "dest/components/player/player.html",
       styles: [],
       directives: [ commonDirectives ]

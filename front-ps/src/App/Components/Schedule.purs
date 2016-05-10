@@ -5,12 +5,12 @@ import Utilities.Angular (toNgClass, DecoratedNgClass, decorateNgClass)
 import Angular.Core (createComponent)
 
 schedule :: DecoratedNgClass
-schedule = decorateNgClass (toNgClass "Schedule" {
+schedule = decorateNgClass (toNgClass "schedule" {
     items: [],
     getItems: []
   } [ ]) [
     createComponent {
-      selector: "Schedule",
+      selector: "schedule",
       templateUrl: "dest/components/schedule/schedule.html",
       styles: [],
       directives: [ commonDirectives ]

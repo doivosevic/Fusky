@@ -5,11 +5,11 @@ import Utilities.Angular (toNgClass, DecoratedNgClass, decorateNgClass)
 import Angular.Core (createComponent)
 
 popular :: DecoratedNgClass
-popular = decorateNgClass (toNgClass "Popular" {
+popular = decorateNgClass (toNgClass "popular" {
     tracks: []
   } [ ]) [
     createComponent {
-      selector: "Popular",
+      selector: "popular",
       templateUrl: "dest/components/popular/popular.html",
       styles: [],
       directives: [ commonDirectives ]

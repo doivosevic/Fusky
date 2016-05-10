@@ -1,6 +1,6 @@
 // module Utilities.Angular
 
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate = (this.__decorate) || function (decorators, target, key, desc) {
   var c = arguments.length;
   var r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc;
   var d;
@@ -9,7 +9,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var __metadata = (this && this.__metadata) || function (k, v) {
+var __metadata = (this.__metadata) || function (k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
@@ -24,8 +24,8 @@ exports.toDirective = function (a) {
 exports.decorateNgClassUncurried = function (ngClass, decorators, constructorInjectors) {
   // console.log(ngClass);
   // var constructorInjectors = null;
-  decorators.push(__metadata('design:paramtypes', constructorInjectors || []));
-  var decoratedNgClass = __decorate(decorators, ngClass);
+  decorators.push(Reflect.metadata('design:paramtypes', constructorInjectors || []));
+  var decoratedNgClass = Reflect.decorate(decorators, ngClass);
 
   console.log(ngClass.name);
 
@@ -33,7 +33,7 @@ exports.decorateNgClassUncurried = function (ngClass, decorators, constructorInj
   return decoratedNgClass;
 };
 
-exports.toNgClassUncurried = function (name, a, memberFunctions) {
+exports.toNgClassUncurried = function (name, classScope, memberFunctions) {
   // ES6 version
   // var tempObj = {
   //   [name]() {
@@ -45,7 +45,7 @@ exports.toNgClassUncurried = function (name, a, memberFunctions) {
 
   // var functAsString = "(fucntion )"
 
-  eval("var tempObj = {    [name]() {      for (var i in a) {        this[i] = a[i];      }    }  }");
+  // eval("var tempObj = {    [name]() {      for (var i in a) {        this[i] = a[i];      }    }  }");
   // console.log(tempObj[name].toString());
   // ES5 version
   // function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -56,8 +56,23 @@ exports.toNgClassUncurried = function (name, a, memberFunctions) {
   //   }
   // });
 
+  var functAsString = "" +
+    "(function " + name + "() {" +
+      // "var paramss = [a, b, c, d, e ,f];" +
+      // "for (var i in paramss) {" +
+      // "  this[i] = paramss[i];" +
+      // "  console.log(this[i]);" +
+      // "}" +
+      "for (var i in classScope) {" +
+      "  this[i] = classScope[i];" +
+      "  console.log(this[i]);" +
+      "}" +
+    "})";
+
+  var classFun = eval(functAsString);
+
   for (var i in memberFunctions) {
-    tempObj[name].prototype[i] = memberFunctions[i];
+    classFun.prototype[i] = memberFunctions[i];
   }
-  return tempObj[name];
+  return classFun;
 };

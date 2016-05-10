@@ -5,7 +5,7 @@ import Utilities.Angular (toNgClass, DecoratedNgClass, decorateNgClass)
 import Angular.Core (createComponent)
 
 station :: DecoratedNgClass
-station = decorateNgClass (toNgClass "Station" {
+station = decorateNgClass (toNgClass "station" {
     name: "asd",
     oib: "qwe",
     address: "dsg",
@@ -13,7 +13,7 @@ station = decorateNgClass (toNgClass "Station" {
     frequency: 100
   } [ ]) [
     createComponent {
-      selector: "Station",
+      selector: "station",
       templateUrl: "dest/components/station/station.html",
       styles: [],
       directives: [ commonDirectives ]
