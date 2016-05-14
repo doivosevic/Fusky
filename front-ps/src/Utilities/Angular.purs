@@ -1,5 +1,6 @@
 module Utilities.Angular where
 
+import Control.Monad.Eff (Eff)
 import Data.Function.Uncurried (Fn3, runFn3)
 
 foreign import data Provider :: *
@@ -11,6 +12,7 @@ foreign import data NgClass :: *
 foreign import data DecoratedNgClass :: *
 
 foreign import data ANGULAR :: !
+type EffNg a = Eff (angular :: ANGULAR) a
 
 foreign import data MemberFunction :: *
 
@@ -27,3 +29,5 @@ foreign import decorateNgClassUncurried :: Fn3 NgClass (Array Decorator) (Array 
 
 decorateNgClass :: NgClass -> Array Decorator -> Array Injectee -> DecoratedNgClass
 decorateNgClass = runFn3 decorateNgClassUncurried
+
+foreign import log :: forall a b. a -> b

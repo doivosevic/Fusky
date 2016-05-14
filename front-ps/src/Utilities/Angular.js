@@ -13,7 +13,13 @@ var __metadata = (this.__metadata) || function (k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+exports.log = function (a) {
+  console.log(a);
+}
+
 exports.toMemberFunction = function (a) {
+  console.log("toMemberFunction");
+  console.log(a);
   return a;
 }
 
