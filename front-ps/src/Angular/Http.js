@@ -13,7 +13,9 @@ function extractMsg(msg) {
 }
 
 exports.httpGetUC = function(url, callback) {
+  console.log("enter httpGetUC");
   return httpHttp.get(url).subscribe(function(res) {
+    console.log("subscribe httpGetUC");
     console.log(res);
     callback(extractMsg(res));
   });

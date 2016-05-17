@@ -9,7 +9,7 @@ import App.Components.RadioDescr (radioDescr)
 import App.Components.Schedule (schedule)
 import App.Components.Station (station)
 import Prelude
-import Utilities.Angular (toNgClass, DecoratedNgClass, decorateNgClass, toDirective, Directive, EffNg, log)
+import Utilities.Angular (toNgClass, DecoratedNgClass, decorateNgClass, toDirective, Directive, EffNg, log, toMemberFunction)
 
 myDirectives :: Array Directive
 myDirectives = map toDirective [ player, popular, radioDescr, schedule, station ]
@@ -34,9 +34,9 @@ index = decorateNgClass (toNgClass "Index" {
       year_of_birth: newControl "",
       occupation: newControl ""
     }
-  } [
-
-  ]) [
+  } (map toMemberFunction [
+    -- onSubmitRegistration
+  ])) [
     createComponent {
       selector: "Index",
       templateUrl: "dest/views/index/index.html",

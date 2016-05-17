@@ -17,6 +17,20 @@ exports.log = function (a) {
   console.log(a);
 }
 
+exports.scopeUpdater = function(scopeObj) {
+  return function (newScope) {
+    console.log("scopeUpdater");
+    console.log(scopeObj);
+    console.log(newScope);
+    for (var elem in newScope) {
+
+      scopeObj["realScope"][elem] = newScope[elem];
+    }
+    console.log(scopeObj);
+    return scopeObj;
+  }
+}
+
 exports.toMemberFunction = function (a) {
   console.log("toMemberFunction");
   console.log(a);
@@ -69,9 +83,23 @@ exports.toNgClassUncurried = function (name, classScope, memberFunctions) {
       // "  this[i] = paramss[i];" +
       // "  console.log(this[i]);" +
       // "}" +
+      "var self = this;" +
+      // "classScope[realScope] = self;" +
+      "setTimeout(function () {console.log(self);}, 5000);" +
       "for (var i in classScope) {" +
       "  this[i] = classScope[i];" +
       "  console.log(this[i]);" +
+      "}" +
+      "classScope['realScope'] = self;" +
+      "console.log('this'); console.log(this);" +
+      "for (var i in this) {" +
+      "  if (this[i].name == 'psConstructor') {" +
+      "    var psConsRet = this[i](this);" +
+      // "    console.log(psConsRet);" +
+      // "    for (var elem in psConsRet) {" +
+      // "      this[elem] = psConsRet[elem];" +
+      // "    }" +
+      "  }" +
       "}" +
     "})";
 

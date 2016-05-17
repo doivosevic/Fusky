@@ -4,6 +4,7 @@ import Utilities.Angular
 
 foreign import formProviders :: Provider
 foreign import commonDirectives :: Directive
+foreign import formDirectives :: Directive
 
 foreign import data Control :: *
 foreign import data ControlGroup :: *

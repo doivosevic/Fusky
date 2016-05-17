@@ -1,12 +1,12 @@
 module App.Root where
 
-import Utilities.Angular (NgClass, toNgClass, DecoratedNgClass, decorateNgClass)
+import Angular.Common (commonDirectives)
 import Angular.Core (Component, createComponent)
 import Angular.Router (Route, createRouteConfig, routerDirectives)
-import Angular.Common (commonDirectives)
-
-import App.Views.Overview (overview)
+import App.Components.HeaderBar (headerBar)
 import App.Views.Index (index)
+import App.Views.Overview (overview)
+import Utilities.Angular (toDirective, NgClass, toNgClass, DecoratedNgClass, decorateNgClass)
 
 app :: { x :: String, y :: String, bol :: Boolean }
 app = {
@@ -20,7 +20,7 @@ appComponent = {
   selector: "App",
   templateUrl: "./dest/app.html",
   styles: [],
-  directives: [ routerDirectives, commonDirectives ]
+  directives: [ routerDirectives, commonDirectives, toDirective headerBar ]
 }
 
 appRoutes :: Array Route

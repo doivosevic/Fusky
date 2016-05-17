@@ -22,6 +22,8 @@ foreign import toDirective :: forall a. a -> Directive
 -- foreign import toInjectee :: forall a. a -> Injectee
 foreign import toNgClassUncurried :: forall a. Fn3 String a (Array MemberFunction) NgClass
 
+foreign import scopeUpdater :: forall a. a -> a -> EffNg a
+
 toNgClass :: forall a. String -> a -> Array MemberFunction -> NgClass
 toNgClass = runFn3 toNgClassUncurried
 
