@@ -6,34 +6,48 @@ import Angular.Router (Route, createRouteConfig, routerDirectives)
 import App.Components.HeaderBar (headerBar)
 import App.Views.Index (index)
 import App.Views.Overview (overview)
-import Utilities.Angular (toDirective, NgClass, toNgClass, DecoratedNgClass, decorateNgClass)
+import Utilities.Angular (Directive, toNgClass, MemberFunction, NgClassProto, toDirective, NgClass, DecoratedNgClass, decorateNgClass)
 
-app :: { x :: String, y :: String, bol :: Boolean }
-app = {
+type RootScope = { x :: String, y :: String, bol :: Boolean }
+
+rootScope :: RootScope
+rootScope = {
   x: "Ovo je x",
   y: "Ovo je y",
   bol: true
 }
 
-appComponent :: Component
-appComponent = {
+rootDirectives :: Array Directive
+rootDirectives = [ routerDirectives, commonDirectives, toDirective headerBar ]
+
+rootComponent :: Component
+rootComponent = {
   selector: "App",
   templateUrl: "./dest/app.html",
   styles: [],
-  directives: [ routerDirectives, commonDirectives, toDirective headerBar ]
+  directives: rootDirectives
 }
 
-appRoutes :: Array Route
-appRoutes = [
+rootRoutes :: Array Route
+rootRoutes = [
   { path: "/", name: "Index", component: index, useAsDefault: true },
   { path: "/overview", name: "Overview", component: overview, useAsDefault: false }
 ]
 
-ngApp :: NgClass
-ngApp = toNgClass "App" app []
+rootProto :: NgClassProto RootScope RootMemberFunctions
+rootProto = {
+  name: "App",
+  classScope: rootScope,
+  memberFunctions: rootMemberFunctions
+}
 
-decoratedNgApp :: DecoratedNgClass
-decoratedNgApp = decorateNgClass ngApp [
-  createComponent appComponent,
-  createRouteConfig appRoutes
+type RootMemberFunctions = { }
+
+rootMemberFunctions :: RootMemberFunctions
+rootMemberFunctions = { }
+
+root :: DecoratedNgClass
+root = decorateNgClass (toNgClass rootProto) [
+  createComponent rootComponent,
+  createRouteConfig rootRoutes
 ] []

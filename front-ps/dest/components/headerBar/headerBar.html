@@ -9,16 +9,16 @@
     <button type="button" (click)="authService.loginEditor()" class="dim">Editor</button>
     <button type="button" (click)="authService.loginUser()" class="dim">User</button>
   </div>
-  <div class="user-box"> 
+  <div class="user-box">
     <!--| {{authService.isLoggedInFn()}} {{authService.isLoggedIn}}-->
-    <div *ngIf="!authService.isLoggedInFn()" class="user-form-box">
-      <form [ngFormModel]="loginForm.group" (ngSubmit)="onSubmit(loginForm.group.value)">
-        <input type="email" id="email" placeholder="E-mail" [ngFormControl]="loginForm.controls['email']"/>
-        <input type="password" id="password" placeholder="Lozinka" [ngFormControl]="loginForm.controls['password']"/>
+    <div *ngIf="!authService.isLoggedIn" class="user-form-box">
+      <form [ngFormModel]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+        <input type="email" id="email" placeholder="E-mail" ngControl='email'/>
+        <input type="password" id="password" placeholder="Lozinka" ngControl='email'/>
         <button type="submit">Prijavi se</button><a href="#register">
           <button type="button" class="dim">Registriraj se</button></a>
       </form>
     </div>
-    <div *ngIf="authService.isLoggedInFn()" class="user-name-box"><a [routerLink]="['/Settings', 'Overview']"><i class="material-icons user-icon">settings</i></a><span class="user-name">{{authService.userName}}</span><span class="user-type">{{authService.userRole}}</span></div>
+    <div *ngIf="authService.isLoggedIn" class="user-name-box"><a [routerLink]="['/Settings', 'Overview']"><i class="material-icons user-icon">settings</i></a><span class="user-name">{{authService.userName}}</span><span class="user-type">{{authService.userRole}}</span></div>
   </div>
 </header>

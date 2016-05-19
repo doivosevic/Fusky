@@ -9,5 +9,8 @@ exports.newControl = function (name) {
   return new common.Control(name, common.Validators.required);
 }
 exports.newControlGroup = function (obj) {
-  return new common.FormBuilder().group(obj);
+  ret = new common.FormBuilder().group(obj);
+  console.log("FormBuilder");
+  console.log(ret);
+  return ret;
 }

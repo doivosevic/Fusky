@@ -8,10 +8,10 @@ import Angular.Http (httpProviders)
 import Angular.Router (routerProviders)
 
 import Utilities.Angular (EffNg)
-import App.Root (decoratedNgApp)
+import App.Root (root)
 
 main :: forall a. a -> EffNg Unit
-main = \_ -> bootstrap decoratedNgApp [
+main = \_ -> bootstrap root [
   formProviders,
   httpProviders,
   routerProviders

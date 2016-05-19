@@ -19,13 +19,16 @@ foreign import data MemberFunction :: *
 foreign import toMemberFunction :: forall a. a -> MemberFunction
 foreign import toDirective :: forall a. a -> Directive
 
+type NgClassProto a b = {
+  name :: String,
+  classScope :: a,
+  memberFunctions :: b
+}
+
 -- foreign import toInjectee :: forall a. a -> Injectee
-foreign import toNgClassUncurried :: forall a. Fn3 String a (Array MemberFunction) NgClass
+foreign import toNgClass :: forall a b. (NgClassProto a b) -> NgClass
 
 foreign import scopeUpdater :: forall a. a -> a -> EffNg a
-
-toNgClass :: forall a. String -> a -> Array MemberFunction -> NgClass
-toNgClass = runFn3 toNgClassUncurried
 
 foreign import decorateNgClassUncurried :: Fn3 NgClass (Array Decorator) (Array Injectee) DecoratedNgClass
 

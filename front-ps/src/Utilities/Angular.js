@@ -53,7 +53,11 @@ exports.decorateNgClassUncurried = function (ngClass, decorators, constructorInj
   return decoratedNgClass;
 };
 
-exports.toNgClassUncurried = function (name, classScope, memberFunctions) {
+exports.toNgClass = function (ngClassProtoObj) {
+  console.log(ngClassProtoObj);
+  var name = ngClassProtoObj.name;
+  var classScope = ngClassProtoObj.classScope;
+  var memberFunctions = ngClassProtoObj.memberFunctions;
   // ES6 version
   // var tempObj = {
   //   [name]() {
@@ -92,15 +96,16 @@ exports.toNgClassUncurried = function (name, classScope, memberFunctions) {
       "}" +
       "classScope['realScope'] = self;" +
       "console.log('this'); console.log(this);" +
-      "for (var i in this) {" +
-      "  if (this[i].name == 'psConstructor') {" +
-      "    var psConsRet = this[i](this);" +
-      // "    console.log(psConsRet);" +
-      // "    for (var elem in psConsRet) {" +
-      // "      this[elem] = psConsRet[elem];" +
-      // "    }" +
-      "  }" +
-      "}" +
+      "if (memberFunctions.psConstructor) memberFunctions.psConstructor(this);" +
+      // "for (var i in this) {" +
+      // "  if (this[i].name == 'psConstructor') {" +
+      // "    var psConsRet = this[i](this);" +
+      // // "    console.log(psConsRet);" +
+      // // "    for (var elem in psConsRet) {" +
+      // // "      this[elem] = psConsRet[elem];" +
+      // // "    }" +
+      // "  }" +
+      // "}" +
     "})";
 
   var classFun = eval(functAsString);

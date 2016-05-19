@@ -1,17 +1,38 @@
 module App.Components.Popular where
 
 import Angular.Common (commonDirectives)
-import Utilities.Angular (toNgClass, DecoratedNgClass, decorateNgClass)
-import Angular.Core (createComponent)
+import Angular.Core (Component, createComponent)
+import Utilities.Angular (Decorator, toNgClass, DecoratedNgClass, decorateNgClass, NgClassProto, Directive)
+
+type PopularScope = { }
+
+popularScope :: PopularScope
+popularScope = { }
+
+popularDirectives :: Array Directive
+popularDirectives = [ commonDirectives ]
+
+popularComponent :: Decorator
+popularComponent = createComponent {
+  selector: "popular",
+  templateUrl: "dest/components/popular/popular.html",
+  styles: [],
+  directives: popularDirectives
+}
+
+popularProto :: NgClassProto PopularScope PopularMemberFunctions
+popularProto = {
+  name: "popular",
+  classScope: popularScope,
+  memberFunctions: popularMemberFunctions
+}
+
+type PopularMemberFunctions = { }
+
+popularMemberFunctions :: PopularMemberFunctions
+popularMemberFunctions = { }
 
 popular :: DecoratedNgClass
-popular = decorateNgClass (toNgClass "popular" {
-    tracks: []
-  } [ ]) [
-    createComponent {
-      selector: "popular",
-      templateUrl: "dest/components/popular/popular.html",
-      styles: [],
-      directives: [ commonDirectives ]
-    }
-  ] [ ]
+popular = decorateNgClass (toNgClass popularProto) [
+  popularComponent
+] []
