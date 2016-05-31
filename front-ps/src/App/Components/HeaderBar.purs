@@ -1,12 +1,7 @@
 module App.Components.HeaderBar where
 
-import Angular.Common (commonDirectives, formDirectives, ControlGroup, newControlGroup, newControl)
-import Angular.Core (Component, createComponent)
-import Angular.Http (httpGet)
-import Angular.Router (routerDirectives)
+import Angular.Angular
 import App.Services.AuthService (authService)
-import Prelude (Unit, map)
-import Utilities.Angular (Decorator, Directive, NgClassProto, NgClass, DecoratedNgClass, scopeUpdater, toMemberFunction, toNgClass, decorateNgClass, EffNg)
 
 type HeaderBarScope = { userName :: String, userRole :: String, loginForm :: ControlGroup, authService :: NgClass }
 

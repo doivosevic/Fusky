@@ -3,6 +3,7 @@ module Angular.Http where
 import Utilities.Angular (Provider, EffNg)
 import Prelude (Unit)
 import Data.Function.Uncurried (Fn2, runFn2, Fn3, runFn3)
+import Rx.Observable
 
 foreign import httpProviders :: Provider
 
@@ -14,3 +15,6 @@ httpGet = runFn2 httpGetUC
 
 httpPost :: forall a b. String -> a -> b -> (EffNg Unit)
 httpPost = runFn3 httpPostUC
+
+foreign import httpGetOBS :: String -> Observable
+foreign import httpPostOBS :: forall a. String -> a -> Observable

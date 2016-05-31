@@ -1,11 +1,6 @@
 module App.Services.AuthService where
 
-import Angular.Common (commonDirectives, formDirectives, ControlGroup, newControlGroup, newControl)
-import Angular.Core (createComponent)
-import Angular.Http (httpGet)
-import Angular.Router (routerDirectives)
-import Prelude (Unit, map)
-import Utilities.Angular (NgClassProto, NgClass, DecoratedNgClass, scopeUpdater, toMemberFunction, toNgClass, decorateNgClass, EffNg)
+import Angular.Angular
 
 type AuthServiceScope = { isLoggedIn :: Boolean, userRole :: String, userName :: String, authLevel :: String, accountType :: Number }
 

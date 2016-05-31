@@ -19,11 +19,19 @@ exports.httpGetUC = function(url, callback) {
     console.log(res);
     callback(extractMsg(res));
   });
-}
+};
 
 exports.httpPostUC = function(url, body, callback) {
   return httpHttp.post(url, body).subscribe(function(res) {
     console.log(res);
     callback(extractMsg(res));
   });
+};
+
+exports.httpPostOBS = function (url) {
+  return function (obj) {
+    return http.post(url, obj);
+  }
 }
+
+exports.httpGetOBS = http.get;

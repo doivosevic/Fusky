@@ -92,10 +92,10 @@ exports.toNgClass = function (ngClassProtoObj) {
       "setTimeout(function () {console.log(self);}, 5000);" +
       "for (var i in classScope) {" +
       "  this[i] = classScope[i];" +
-      "  console.log(this[i]);" +
+      // "  console.log(this[i]);" +
       "}" +
       "classScope['realScope'] = self;" +
-      "console.log('this'); console.log(this);" +
+      // "console.log('this'); console.log(this);" +
       "if (memberFunctions.psConstructor) memberFunctions.psConstructor(this);" +
       // "for (var i in this) {" +
       // "  if (this[i].name == 'psConstructor') {" +
