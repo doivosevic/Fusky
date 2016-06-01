@@ -13,6 +13,8 @@ var __metadata = (this.__metadata) || function (k, v) {
   if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+exports.toEffNgUnit = function (a) { return a; }
+
 exports.log = function (a) {
   console.log(a);
 }
@@ -31,6 +33,21 @@ exports.scopeUpdater = function(scopeObj) {
   }
 }
 
+exports.scopeUpdaterNew = function (scopeProto) {
+  return function (scopeToScope) {
+    var newScope = scopeToScope(scopeProto["realScope"]);
+    for (var elem in newScope) {
+      scopeProto["realScope"][elem] = newScope[elem];
+    }
+  }
+}
+
+exports.scopeExtractor = function (scopeProto) {
+  return function (scopeToSomeThing) {
+    return scopeToSomeThing(scopeProto["realScope"]);
+  }
+}
+
 exports.toMemberFunction = function (a) {
   console.log("toMemberFunction");
   console.log(a);
@@ -41,16 +58,20 @@ exports.toDirective = function (a) {
   return a;
 }
 
-exports.decorateNgClassUncurried = function (ngClass, decorators, constructorInjectors) {
-  // console.log(ngClass);
-  // var constructorInjectors = null;
-  decorators.push(Reflect.metadata('design:paramtypes', constructorInjectors || []));
-  var decoratedNgClass = Reflect.decorate(decorators, ngClass);
+exports.decorateNgClass = function (ngClass) {
+  return function(decorators) {
+    return function (constructorInjectors) {
+      // console.log(ngClass);
+      // var constructorInjectors = null;
+      decorators.push(Reflect.metadata('design:paramtypes', constructorInjectors || []));
+      var decoratedNgClass = Reflect.decorate(decorators, ngClass);
 
-  console.log(ngClass.name);
+      console.log(ngClass.name);
 
-  // console.log(ngClass);
-  return decoratedNgClass;
+      // console.log(ngClass);
+      return decoratedNgClass;
+    }
+  }
 };
 
 exports.toNgClass = function (ngClassProtoObj) {

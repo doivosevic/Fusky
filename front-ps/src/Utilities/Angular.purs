@@ -1,7 +1,7 @@
 module Utilities.Angular where
 
 import Control.Monad.Eff (Eff)
-import Data.Function.Uncurried (Fn3, runFn3)
+import Prelude (Unit)
 
 foreign import data Provider :: *
 foreign import data Directive :: *
@@ -25,14 +25,17 @@ type NgClassProto a b = {
   memberFunctions :: b
 }
 
+foreign import toEffNgUnit :: forall a. a -> EffNg Unit
+
 -- foreign import toInjectee :: forall a. a -> Injectee
 foreign import toNgClass :: forall a b. (NgClassProto a b) -> NgClass
 
 foreign import scopeUpdater :: forall a. a -> a -> EffNg a
 
-foreign import decorateNgClassUncurried :: Fn3 NgClass (Array Decorator) (Array Injectee) DecoratedNgClass
+foreign import scopeUpdaterNew :: forall a. a -> (a -> a) -> a
 
-decorateNgClass :: NgClass -> Array Decorator -> Array Injectee -> DecoratedNgClass
-decorateNgClass = runFn3 decorateNgClassUncurried
+foreign import scopeExtractor :: forall a b. a -> (a -> b) -> b
+
+foreign import decorateNgClass :: NgClass -> Array Decorator -> Array Injectee -> DecoratedNgClass
 
 foreign import log :: forall a b. a -> b

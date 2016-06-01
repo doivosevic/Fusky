@@ -1,8 +1,11 @@
 module App.Services.AuthService where
 
 import Angular.Angular
+import Angular.Http (httpPostOBS)
+import Control.Plus (empty)
+import Rx.Observable (flatMap, Observable, subscribe)
 
-type AuthServiceScope = { isLoggedIn :: Boolean, userRole :: String, userName :: String, authLevel :: String, accountType :: Number }
+type AuthServiceScope = { isLoggedIn :: Boolean, userRole :: String, userName :: String, authLevel :: String, accountType :: String }
 
 unlogged :: String
 unlogged = "-1"
@@ -21,13 +24,81 @@ authServiceScope = {
   userRole: "",
   userName: "",
   authLevel: unlogged,
-  accountType: 0.0
+  accountType: "0"
 }
 
-type AuthServiceMemberFunctions = { }
+type UpdateType = { account_type :: String, first_name :: String, last_name :: String }
+
+updateUserAuth :: Observable AuthServiceScope
+updateUserAuth = map update get
+  where
+    get :: Observable UpdateType
+    get = httpGetOBS "/user/account/type"
+    update = \resData -> scopeUpdaterNew authServiceScope (\oldScope -> 
+      oldScope { authLevel = resData.account_type, isLoggedIn = true })
+
+updateUserData :: EffNg Unit
+updateUserData = subscribe updateUserAuth subsGetAcc
+  where
+    subsGetAcc :: AuthServiceScope -> EffNg Unit
+    subsGetAcc = \_ -> subscribe getAcc update
+    getAcc = httpGetOBS "/user/account/get"
+    update :: UpdateType -> EffNg Unit
+    update resData = toEffNgUnit (scopeUpdaterNew authServiceScope (\oldScope ->
+      oldScope { userName = resData.first_name ++ "  " ++ resData.last_name
+               , accountType = resData.account_type
+               , userRole = if resData.account_type == user then "korisnik"
+                  else if resData.account_type == editor then "urednik"
+                  else if resData.account_type == admin then "administrator"
+                  else if resData.account_type == owner then "vlasnik"
+                  else "nepoznati"
+                }))
+
+logout :: Observable AuthServiceScope
+logout = if isLoggedIn 
+          then flatMap logout_ (\_ -> updateUserAuth) 
+          else empty
+  where 
+    logout_ = httpGetOBS "/user/auth/signout"
+    isLoggedIn = scopeExtractor authServiceScope (\scope -> scope.isLoggedIn)
+  
+loginX :: String -> String -> EffNg Unit
+loginX email password = subscribe login_ (\_ -> updateUserData)
+  where
+    postLogin = httpPostOBS "/user/auth/login" { email: email, password: password }
+    login_ = flatMap logout (\_ -> postLogin)
+    
+loginAdmin :: EffNg Unit
+loginAdmin = loginX "dito@dito.ninja" "1dominik"
+loginOwner :: EffNg Unit
+loginOwner = loginX "xdwarrior@gmail.com" "NeprobojnaLozinka"
+loginEditor :: EffNg Unit
+loginEditor = loginX "dominik.ivosevic@gmail.com" "1dominik"
+loginUser :: EffNg Unit
+loginUser = loginX "dominik.ivosevic@dito.ninja" "1dominik"
+
+type AuthServiceMemberFunctions = { 
+  updateUserAuth :: Observable AuthServiceScope,
+  updateUserData :: EffNg Unit,
+  logout :: Observable AuthServiceScope,
+  loginX :: String -> String -> EffNg Unit,
+  loginAdmin :: EffNg Unit,
+  loginOwner :: EffNg Unit,
+  loginEditor :: EffNg Unit,
+  loginUser :: EffNg Unit
+}
 
 authServiceMemberFunctions :: AuthServiceMemberFunctions
-authServiceMemberFunctions  = { }
+authServiceMemberFunctions  = { 
+  updateUserAuth: updateUserAuth,
+  updateUserData: updateUserData,
+  logout: logout,
+  loginX: loginX,
+  loginAdmin: loginAdmin,
+  loginOwner: loginOwner,
+  loginEditor: loginEditor,
+  loginUser: loginUser
+}
 
 authServiceProto :: NgClassProto AuthServiceScope AuthServiceMemberFunctions
 authServiceProto = {

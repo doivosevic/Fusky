@@ -1,7 +1,6 @@
 module Angular.Router where
 
 import Utilities.Angular (Provider, Directive, Decorator, DecoratedNgClass)
-import Data.Function.Uncurried (Fn1, runFn1)
 
 foreign import routerProviders :: Provider
 foreign import routerDirectives :: Directive
@@ -15,7 +14,4 @@ type Route = {
   useAsDefault :: Boolean
 }
 
-foreign import createRouteConfigUncurried :: Fn1 (Array Route) Decorator
-
-createRouteConfig :: Array Route -> Decorator
-createRouteConfig = runFn1 createRouteConfigUncurried
+foreign import createRouteConfig :: Array Route -> Decorator

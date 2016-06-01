@@ -12,26 +12,38 @@ function extractMsg(msg) {
     return msg2;
 }
 
-exports.httpGetUC = function(url, callback) {
-  console.log("enter httpGetUC");
-  return httpHttp.get(url).subscribe(function(res) {
-    console.log("subscribe httpGetUC");
-    console.log(res);
-    callback(extractMsg(res));
-  });
+exports.httpGet = function(url) {
+  return function (callback) {
+    console.log("enter httpGetUC");
+    return httpHttp.get(url).subscribe(function(res) {
+      console.log("subscribe httpGetUC");
+      console.log(res);
+      callback(extractMsg(res));
+    });
+  }
 };
 
-exports.httpPostUC = function(url, body, callback) {
-  return httpHttp.post(url, body).subscribe(function(res) {
-    console.log(res);
-    callback(extractMsg(res));
-  });
+exports.httpPost = function(url) {
+  return function (body) {
+    return function (callback) {
+      return httpHttp.post(url, body).subscribe(function(res) {
+        console.log(res);
+        callback(extractMsg(res));
+      });
+    }
+  }
 };
 
 exports.httpPostOBS = function (url) {
   return function (obj) {
-    return http.post(url, obj);
+    return http.post(url, obj).map(function(res) { 
+      return res.json().data;
+    });
   }
 }
 
-exports.httpGetOBS = http.get;
+exports.httpGetOBS = function (url) {
+  return http.get(url).map(function(res) { 
+    return res.json().data;
+  });
+}

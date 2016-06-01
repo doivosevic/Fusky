@@ -2,4 +2,8 @@
 
 var browser = require('angular2/platform/browser');
 
-exports.bootstrapUncurried = browser.bootstrap;
+exports.bootstrap = function (a) {
+  return function (b) {
+    browser.bootstrap(a, b);
+  }
+}
