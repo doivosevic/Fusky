@@ -2,10 +2,11 @@
 
 var http = require('angular2/http');
 var core = require('angular2/core');
+require('rxjs/add/operator/map');
 
 exports.httpProviders = http.HTTP_PROVIDERS;
 
-var httpHttp = core.Injector.resolveAndCreate([http.Http, http.HTTP_PROVIDERS]).get(http.Http);
+var httpHttp = core.ReflectiveInjector.resolveAndCreate([http.Http, http.HTTP_PROVIDERS]).get(http.Http);
 
 function extractMsg(msg) {
     var msg2 = msg.json ? (msg.json().error_message || msg.json().success_message || msg.json().data || msg.json()) : msg;
@@ -36,14 +37,16 @@ exports.httpPost = function(url) {
 
 exports.httpPostOBS = function (url) {
   return function (obj) {
-    return http.post(url, obj).map(function(res) { 
+    return httpHttp.post(url, obj).map(function(res) { 
       return res.json().data;
     });
   }
 }
 
 exports.httpGetOBS = function (url) {
-  return http.get(url).map(function(res) { 
+  var ret = httpHttp.get(url);
+  var ret2 = ret.map(function(res) { 
     return res.json().data;
   });
+  return ret2;
 }

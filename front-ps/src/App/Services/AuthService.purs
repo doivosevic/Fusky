@@ -45,7 +45,7 @@ updateUserData = subscribe updateUserAuth subsGetAcc
     getAcc = httpGetOBS "/user/account/get"
     update :: UpdateType -> EffNg Unit
     update resData = toEffNgUnit (scopeUpdaterNew authServiceScope (\oldScope ->
-      oldScope { userName = resData.first_name ++ "  " ++ resData.last_name
+      oldScope { userName = resData.first_name <> "  " <> resData.last_name
                , accountType = resData.account_type
                , userRole = if resData.account_type == user then "korisnik"
                   else if resData.account_type == editor then "urednik"
@@ -54,38 +54,37 @@ updateUserData = subscribe updateUserAuth subsGetAcc
                   else "nepoznati"
                 }))
 
-logout :: Observable AuthServiceScope
-logout = if isLoggedIn 
-          then flatMap logout_ (\_ -> updateUserAuth) 
-          else empty
+logout :: forall a. a -> Observable AuthServiceScope
+logout = \_ -> if scopeExtractor authServiceScope (\scope -> scope.isLoggedIn) 
+                then flatMap logout_ (\_ -> updateUserAuth) 
+                else empty
   where 
     logout_ = httpGetOBS "/user/auth/signout"
-    isLoggedIn = scopeExtractor authServiceScope (\scope -> scope.isLoggedIn)
   
 loginX :: String -> String -> EffNg Unit
 loginX email password = subscribe login_ (\_ -> updateUserData)
   where
     postLogin = httpPostOBS "/user/auth/login" { email: email, password: password }
-    login_ = flatMap logout (\_ -> postLogin)
+    login_ = flatMap (logout 0) (\_ -> postLogin)
     
-loginAdmin :: EffNg Unit
-loginAdmin = loginX "dito@dito.ninja" "1dominik"
-loginOwner :: EffNg Unit
-loginOwner = loginX "xdwarrior@gmail.com" "NeprobojnaLozinka"
-loginEditor :: EffNg Unit
-loginEditor = loginX "dominik.ivosevic@gmail.com" "1dominik"
-loginUser :: EffNg Unit
-loginUser = loginX "dominik.ivosevic@dito.ninja" "1dominik"
+loginAdmin :: forall a. a -> EffNg Unit
+loginAdmin _ = loginX "dito@dito.ninja" "1dominik"
+loginOwner :: forall a. a -> EffNg Unit
+loginOwner _ = loginX "xdwarrior@gmail.com" "NeprobojnaLozinka"
+loginEditor :: forall a. a -> EffNg Unit
+loginEditor _ = loginX "dominik.ivosevic@gmail.com" "1dominik"
+loginUser :: forall a. a -> EffNg Unit
+loginUser _ = loginX "dominik.ivosevic@dito.ninja" "1dominik"
 
 type AuthServiceMemberFunctions = { 
   updateUserAuth :: Observable AuthServiceScope,
   updateUserData :: EffNg Unit,
-  logout :: Observable AuthServiceScope,
+  logout :: forall a. a -> Observable AuthServiceScope,
   loginX :: String -> String -> EffNg Unit,
-  loginAdmin :: EffNg Unit,
-  loginOwner :: EffNg Unit,
-  loginEditor :: EffNg Unit,
-  loginUser :: EffNg Unit
+  loginAdmin :: forall a. a -> EffNg Unit,
+  loginOwner :: forall a. a -> EffNg Unit,
+  loginEditor :: forall a. a -> EffNg Unit,
+  loginUser :: forall a. a -> EffNg Unit
 }
 
 authServiceMemberFunctions :: AuthServiceMemberFunctions

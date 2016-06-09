@@ -7,19 +7,19 @@
     "test": "test"
   },
   "dependencies": {
-    "angular2": "latest",
+    "angular2": "2.0.0-beta.17",
     "bootstrap": "^3.3.5",
     "es6-promise": "3.1.2",
-    "es6-shim": "latest",
-    "ng2-file-upload": "^1.0.0-beta.0",
+    "es6-shim": "^0.35.1",
+    "ng2-file-upload": "1.0.0-beta.0",
     "reflect-metadata": "0.1.2",
-    "rx": "^4.1.0",
-    "rxjs": "5.0.0-beta.2",
+    "rxjs": "5.0.0-beta.6",
+    "rx": "latest",
     "systemjs": "0.19.6",
     "whatwg-fetch": "^0.10.0",
-    "zone.js": "*"
-  },
-  "devDependencies": {
+    "zone.js": "*",
+    
+    
     "autoprefixer": "^6.1.0",
     "codelyzer": "0.0.12",
     "connect": "^3.4.0",
@@ -49,13 +49,13 @@
     "protractor": "^3.0.0",
     "purescript": "0.8.2",
     "purescript-psa": "latest",
-    "purescript-webpack-plugin": "latest",
+    "purescript-webpack-plugin": "^0.3.1",
     "purs-loader": "latest",
     "source-map-loader": "latest",
     "tslint": "latest",
-    "typescript": "latest",
-    "typings": "latest",
-    "webpack": "latest"
+    "typescript": "^1.8.10",
+    "typings": "^1.0.4",
+    "webpack": "^1.13.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

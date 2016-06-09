@@ -109,6 +109,7 @@ exports.toNgClass = function (ngClassProtoObj) {
       // "  console.log(this[i]);" +
       // "}" +
       "var self = this;" +
+      // "throw 'asd'" +
       // "classScope[realScope] = self;" +
       "setTimeout(function () {console.log(self);}, 5000);" +
       "for (var i in classScope) {" +
@@ -116,7 +117,7 @@ exports.toNgClass = function (ngClassProtoObj) {
       // "  console.log(this[i]);" +
       "}" +
       "classScope['realScope'] = self;" +
-      // "console.log('this'); console.log(this);" +
+      "console.log('cs'); console.log(classScope);" +
       "if (memberFunctions.psConstructor) memberFunctions.psConstructor(this);" +
       // "for (var i in this) {" +
       // "  if (this[i].name == 'psConstructor') {" +
@@ -130,9 +131,12 @@ exports.toNgClass = function (ngClassProtoObj) {
     "})";
 
   var classFun = eval(functAsString);
-
+  // classFun.__proto__ = Object.create(memberFunctions);
+  console.log(classFun);
+  console.log("name: " + name);
+  classFun.__proto__ = classFun.__proto__ || {};
   for (var i in memberFunctions) {
-    classFun.prototype[i] = memberFunctions[i];
+    classFun.__proto__[i] = memberFunctions[i];
   }
   return classFun;
 };
