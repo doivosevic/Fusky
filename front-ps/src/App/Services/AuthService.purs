@@ -62,10 +62,10 @@ logout = \_ -> if scopeExtractor authServiceScope (\scope -> scope.isLoggedIn)
     logout_ = httpGetOBS "/user/auth/signout"
   
 loginX :: String -> String -> EffNg Unit
-loginX email password = subscribe login_ (\_ -> updateUserData)
+loginX email password = subscribe login_ (\_ -> log updateUserData)
   where
     postLogin = httpPostOBS "/user/auth/login" { email: email, password: password }
-    login_ = flatMap (logout 0) (\_ -> postLogin)
+    login_ = postLogin --flatMap (logout 0) (\_ -> postLogin)
     
 loginAdmin :: forall a. a -> EffNg Unit
 loginAdmin _ = loginX "dito@dito.ninja" "1dominik"
@@ -108,3 +108,6 @@ authServiceProto = {
 
 authService :: NgClass
 authService = toNgClass authServiceProto
+
+asd :: NgService
+asd = toNgService authService

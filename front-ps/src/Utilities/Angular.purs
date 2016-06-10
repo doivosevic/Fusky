@@ -25,6 +25,9 @@ type NgClassProto a b = {
   memberFunctions :: b
 }
 
+foreign import data NgService :: *
+foreign import toNgService :: NgClass -> NgService
+
 foreign import toEffNgUnit :: forall a. a -> EffNg Unit
 
 -- foreign import toInjectee :: forall a. a -> Injectee

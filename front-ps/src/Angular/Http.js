@@ -38,7 +38,10 @@ exports.httpPost = function(url) {
 exports.httpPostOBS = function (url) {
   return function (obj) {
     return httpHttp.post(url, obj).map(function(res) { 
-      return res.json().data;
+      var ret = res.json().data;
+      console.log(res);
+      console.log(ret);
+      return ret;
     });
   }
 }

@@ -17,6 +17,7 @@ exports.toEffNgUnit = function (a) { return a; }
 
 exports.log = function (a) {
   console.log(a);
+  return a;
 }
 
 exports.scopeUpdater = function(scopeObj) {
@@ -66,13 +67,17 @@ exports.decorateNgClass = function (ngClass) {
       decorators.push(Reflect.metadata('design:paramtypes', constructorInjectors || []));
       var decoratedNgClass = Reflect.decorate(decorators, ngClass);
 
-      console.log(ngClass.name);
+      // console.log(ngClass.name);
 
       // console.log(ngClass);
       return decoratedNgClass;
     }
   }
 };
+
+exports.toNgService = function (ngClass) {
+  return ngClass();
+}
 
 exports.toNgClass = function (ngClassProtoObj) {
   console.log(ngClassProtoObj);
@@ -117,7 +122,7 @@ exports.toNgClass = function (ngClassProtoObj) {
       // "  console.log(this[i]);" +
       "}" +
       "classScope['realScope'] = self;" +
-      "console.log('cs'); console.log(classScope);" +
+      // "console.log('cs: ' + name); console.log(classScope);" +
       "if (memberFunctions.psConstructor) memberFunctions.psConstructor(this);" +
       // "for (var i in this) {" +
       // "  if (this[i].name == 'psConstructor') {" +
@@ -132,8 +137,8 @@ exports.toNgClass = function (ngClassProtoObj) {
 
   var classFun = eval(functAsString);
   // classFun.__proto__ = Object.create(memberFunctions);
-  console.log(classFun);
-  console.log("name: " + name);
+  // console.log(classFun);
+  // console.log("name: " + name);
   classFun.__proto__ = classFun.__proto__ || {};
   for (var i in memberFunctions) {
     classFun.__proto__[i] = memberFunctions[i];
